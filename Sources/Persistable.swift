@@ -11,6 +11,8 @@ public protocol Persistable {
     
     var identity: String { get }
 
+    init(entity: T)
+
     func update(_ entity: T)
     
     /* predicate to uniquely identify the record, such as: NSPredicate(format: "code == '\(code)'") */
