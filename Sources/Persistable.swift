@@ -11,7 +11,7 @@ public protocol Persistable {
     
     var identity: String { get }
 
-    init(entity: T)
+    required convenience init(entity: T)
 
     func update(_ entity: T)
     
