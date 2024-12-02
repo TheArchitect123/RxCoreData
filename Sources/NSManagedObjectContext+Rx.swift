@@ -99,25 +99,6 @@ public extension Reactive where Base: NSManagedObjectContext {
     }
     
     /**
-     Creates and executes a fetch request and returns the fetched objects as an `Observable` array of `Persistable`.
-     - parameter type: the `Persistable` concrete type; defaults to `Persistable`
-     - parameter format: the format string for the predicate; defaults to `""`
-     - parameter arguments: the arguments to substitute into `format`, in the order provided; defaults to `nil`
-     - parameter sortDescriptors: the sort descriptors for the fetch request; defaults to `nil`
-     - returns: An `Observable` array of `Persistable` objects that can be bound to a table view.
-     */
-    func entities<P: Persistable>(_ type: P.Type = P.self,
-                                  predicate: NSPredicate? = nil,
-                                  sortDescriptors: [NSSortDescriptor]? = nil) -> Observable<[P]> {
-        
-        let fetchRequest: NSFetchRequest<P.T> = NSFetchRequest(entityName: P.entityName)
-        fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = sortDescriptors ?? [NSSortDescriptor(key: P.primaryAttributeName, ascending: true)]
-        
-        return entities(fetchRequest: fetchRequest).map {$0.map(P.init)}
-    }
-    
-    /**
      Attempts to fetch and update (or create if not found) a `Persistable` instance. Will throw error if fetch fails.
      - parameter persistable: a `Persistable` instance
      */
